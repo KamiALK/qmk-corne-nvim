@@ -36,10 +36,10 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-KC_A, KC_B, KC_C, KC_D, KC_E, KC_F,                  KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    LSFT_T(KC_SLSH),
+ KC_BSPC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    LSFT_T(KC_SLSH),
 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LALT), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LALT_T(KC_MINS),
+ LGUI(KC_GRV), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LALT_T(KC_MINS),
 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    ESC_WIN,
@@ -60,11 +60,11 @@ KC_A, KC_B, KC_C, KC_D, KC_E, KC_F,                  KC_F,    KC_G,    KC_C,    
 
   [1] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  XXXXXXX  ,   XXXXXXX,                      XXXXXXX,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
+      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  LGUI(KC_GRV),   KC_TAB,                      KC_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT, XXXXXXX,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
+      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT,KC_LCTL,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, _______,\
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                      KC_R,CTRL_SHIFT, XXXXXXX, XXXXXXX,  XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,  KC_TRNS, KC_TRNS,    MO(4),KC_TRNS ,KC_TRNS \
                                       //`--------------------------'  `--------------------------'
@@ -85,11 +85,11 @@ KC_A, KC_B, KC_C, KC_D, KC_E, KC_F,                  KC_F,    KC_G,    KC_C,    
 
   [3] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,  XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     KC_PPLS, KC_1, KC_2, KC_3, KC_MINS, _______,\
+      KC_ESC,  XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     KC_PPLS, KC_1, KC_2, KC_3, KC_MINS,  KC_GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, KC_LSFT, KC_LALT, KC_MPRV,XXXXXXX,XXXXXXX,                    KC_PAST, KC_4, KC_5, KC_6, KC_SLSH, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     KC_0,    KC_7, KC_8, KC_9, KC_PERC, XXXXXXX,\
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     KC_0,    KC_7, KC_8, KC_9, KC_PERC, KC_LGUI,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, KC_TRNS, _______,    KC_TRNS, KC_TRNS, KC_TRNS\
                                       //`--------------------------'  `--------------------------'
