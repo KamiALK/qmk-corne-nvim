@@ -11,7 +11,6 @@
 
 
 
-
 // =================== Defines auxiliares ===================
 #define GUI_ENT  GUI_T(KC_ENT)
 #define ALT_SHIFT MT(MOD_LALT | MOD_LSFT, KC_NO)   // Alt + Shift
@@ -22,11 +21,22 @@
 #define WIN_ALT_HOLD MT(MOD_LGUI | MOD_LALT, KC_NO)
 #define ESC_WIN MT(MOD_LGUI, KC_ESC)
 // =================== Keymaps ===================
+// Agrega esto al inicio de tu keymap.c, después de los #define existentes
+enum custom_keycodes {
+    VIM_GCC = SAFE_RANGE,    // ESC + g + c + c
+    VIM_XX,                  // ESC + SPACE + x + x
+    VIM_NVIM,                // n + v + i + m + SPACE + . + ENTER
+    VIM_50YJ,                // ESC + 5 + 0 + y + j
+    VIM_50YK,                // ESC + 5 + 0 + y + k
+    VIM_AT_C,                // ESC + SHIFT + @ + c
+};
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_BSPC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    LSFT_T(KC_SLSH),
+KC_A, KC_B, KC_C, KC_D, KC_E, KC_F,                  KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    LSFT_T(KC_SLSH),
 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  OSM(MOD_LALT), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LALT_T(KC_MINS),
@@ -35,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    ESC_WIN,
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                     KC_LGUI, LT(3, GUI_ENT), MO(1), MO(2), CTRL_SPC, KC_LCTL
+                                     VIM_GCC, LT(3, GUI_ENT), MO(1), MO(2), CTRL_SPC, VIM_XX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -50,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  XXXXXXX  ,   XXXXXXX,                      XXXXXXX,KC_PGUP,  XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,\
+      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  XXXXXXX  ,   XXXXXXX,                      XXXXXXX,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT, XXXXXXX,                      WIN_ALT_HOLD,KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, _______,\
+      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT, XXXXXXX,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -105,6 +115,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+// Y agrega esto al final del archivo, antes del #ifdef OLED_ENABLE
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VIM_GCC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) "gcc");
+            }
+            break;
+
+        case VIM_XX:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) " xx");
+            }
+            break;
+
+        case VIM_NVIM:
+            if (record->event.pressed) {
+                SEND_STRING("nvim ." SS_TAP(X_ENT));
+            }
+            break;
+
+        case VIM_50YJ:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) "50yj");
+            }
+            break;
+
+        case VIM_50YK:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) "50yk");
+            }
+            break;
+
+        case VIM_AT_C:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) SS_LSFT("2") "c");  // SHIFT+2 = @
+            }
+            break;
+    }
+    return true;
+};
+
 
 #ifdef OLED_ENABLE
 
