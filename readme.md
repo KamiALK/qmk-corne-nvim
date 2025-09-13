@@ -37,13 +37,10 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 
 # Keymap de mi Crkbd
 
-## Capa Base
+## Capa 0
 
-┌──────┬──────┬──────┬──────┬──────┬──────┐ ┌──────┬──────┬──────┬──────┬──────┬───────────┐
-│ bspc │ ' │ , │ . │ p │ y │ │ f │ g │ c │ r │ l │slsh/lshif │
-├──────┼──────┼──────┼──────┼──────┼──────┤ ├──────┼──────┼──────┼──────┼──────┼───────────┤
-│win +`│ a │ o │ e │ u │ i │ │ d │ h │ t │ n │ s │mins/lalt │
-├──────┼──────┼──────┼──────┼──────┼──────┤ ├──────┼──────┼──────┼──────┼──────┼───────────┤
-│lsft │ ; │ q │ j │ k │ x │ │ b │ m │ w │ v │ z │esc/win │
-└──────┴──────┴──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┴──────┴───────────┘
-│vim_gcc│ gui_ent(lt3)│mo1│mo2│ctrl/space│ vim_xx │
+![capa 0](./images/capa_0.png)
+
+## Capa 1
+
+~[capa 1](./images/capa_1.png)
