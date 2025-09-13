@@ -43,4 +43,4 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 
 ## Capa 1
 
-[Capa 1](./images/capa_1.png)
+[Capa 1](images/capa_1.png)
