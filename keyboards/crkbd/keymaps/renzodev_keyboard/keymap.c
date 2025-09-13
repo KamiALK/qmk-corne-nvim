@@ -29,6 +29,7 @@ enum custom_keycodes {
     VIM_50YJ,                // ESC + 5 + 0 + y + j
     VIM_50YK,                // ESC + 5 + 0 + y + k
     VIM_AT_C,                // ESC + SHIFT + @ + c
+    TABU,
 };
 
 
@@ -45,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    ESC_WIN,
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                     VIM_GCC, LT(3, GUI_ENT), MO(1), MO(2), CTRL_SPC, VIM_XX
+                                     VIM_GCC,  MO(1),LT(3, GUI_ENT),  CTRL_SPC ,MO(2), VIM_XX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -59,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [1] = LAYOUT_split_3x6_3( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  //,-----------------------------------------------------.                    ,-------------------------------------------------@!({}-!#/\@^``)----.
       KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  LGUI(KC_GRV),   KC_TAB,                      KC_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT,KC_LCTL,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                      KC_R,CTRL_SHIFT, XXXXXXX, XXXXXXX,  XXXXXXX, _______,\
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                      KC_R,CTRL_SHIFT,TABU, XXXXXXX,  XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_TRNS, KC_TRNS,    MO(4),KC_TRNS ,KC_TRNS \
+                                          KC_LGUI,  KC_TRNS, KC_TRNS,    KC_TRNS, MO(4),KC_TRNS \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -79,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, S(KC_MINS),                   KC_COLON, KC_GRV,  KC_CIRC, KC_AT, KC_AMPR, KC_TILD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_TRNS, MO(4),     KC_TRNS, KC_TRNS, KC_TRNS\
+                                          KC_LGUI, MO(4),KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS\
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -151,6 +152,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VIM_AT_C:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_ESC) SS_LSFT("2") "c");  // SHIFT+2 = @
+            }
+            break;
+        case TABU:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_SPC) "`");  // Espacio usando SS_TAP + backtick
             }
             break;
     }
