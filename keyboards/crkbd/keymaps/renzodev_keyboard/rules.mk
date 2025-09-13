@@ -13,6 +13,6 @@ COMMAND_ENABLE = no
 
 # Soporte para encoder (si lo usas)
 ENCODER_ENABLE = no
-
+VIA_ENABLE = yes
 # Debug
 VERBOSE = yes
