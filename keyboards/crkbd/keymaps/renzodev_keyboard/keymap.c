@@ -21,7 +21,7 @@
 // =================== Custom keycodes ===================
 enum custom_keycodes {
     VIM_GCC = SAFE_RANGE,    // ESC + g + c + c
-    VIM_XX,                  // ESC + SPACE + x + x
+    // VIM_XX,                  // ESC + SPACE + x + x
     VIM_NVIM,                // n + v + i + m + SPACE + . + ENTER
     VIM_50YJ,                // ESC + 5 + 0 + y + j
     VIM_50YK,                // ESC + 5 + 0 + y + k
@@ -36,6 +36,7 @@ enum {
     TD_DIAG_D,     // diagnósticos
     TD_DIAG_E,     // errors
     TD_DIAG_T,     // trouble/todo
+    TD_VIM_XX,     // ✅ AGREGA ESTA LÍNEA
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    ESC_WIN,
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                     TD(TD_VIM_GCC),  MO(1),CTRL_SPC,  LT(3, GUI_ENT),MO(2), VIM_XX
+                                     TD(TD_VIM_GCC),  MO(1),CTRL_SPC,  LT(3, GUI_ENT),MO(2),TD(TD_VIM_XX)
                                       // `--------------------------'  `--------------------------'
   ),
 
@@ -106,11 +107,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // =================== Process Record User ===================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case VIM_XX:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESC) " xx");
-            }
-            break;
+    //     case VIM_XX:
+    //         if (record->event.pressed) {
+    //             SEND_STRING(SS_TAP(X_ESC) " xx");
+    //         }
+    //         break;
         case VIM_NVIM:
             if (record->event.pressed) {
                 SEND_STRING("nvim ." SS_TAP(X_ENT));
@@ -158,7 +159,16 @@ void vim_gcc_reset(tap_dance_state_t *state, void *user_data) {
     // Liberar Alt SIEMPRE al resetear
     unregister_code(KC_LALT);
 }
-
+// ✅ AGREGA ESTA FUNCIÓN:
+void vim_xx_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        // 1 tap: ESC + espacio + xx
+        SEND_STRING(SS_TAP(X_ESC) " xx");
+    } else if (state->count == 2) {
+        // 2 taps: =
+        SEND_STRING("=");
+    }
+}
 // Funciones específicas para cada diagnóstico
 void diag_w_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -195,6 +205,7 @@ void diag_t_finished(tap_dance_state_t *state, void *user_data) {
 // =================== Tap Dance Actions ===================
 tap_dance_action_t tap_dance_actions[] = {
     [TD_VIM_GCC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, vim_gcc_finished, vim_gcc_reset),
+    [TD_VIM_XX] = ACTION_TAP_DANCE_FN(vim_xx_finished),
     [TD_DIAG_W] = ACTION_TAP_DANCE_FN(diag_w_finished),
     [TD_DIAG_D] = ACTION_TAP_DANCE_FN(diag_d_finished),
     [TD_DIAG_E] = ACTION_TAP_DANCE_FN(diag_e_finished),
