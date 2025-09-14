@@ -20,6 +20,8 @@
 #define CTRL_SPC MT(MOD_LCTL, KC_SPC)
 #define WIN_ALT_HOLD MT(MOD_LGUI | MOD_LALT, KC_NO)
 #define ESC_WIN MT(MOD_LGUI, KC_ESC)
+#define C_SH_T MT(MOD_LCTL | MOD_LSFT, KC_T)
+#define C_SH_R MT(MOD_LGUI | MOD_LALT, KC_R)
 // =================== Keymaps ===================
 // Agrega esto al inicio de tu keymap.c, después de los #define existentes
 enum custom_keycodes {
@@ -61,12 +63,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-------------------------------------------------@!({}-!#/\@^``)----.
-      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  LGUI(KC_GRV),   KC_TAB,                      KC_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
+      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  XXXXXXX,   KC_TAB,                    C_SH_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT,KC_LCTL,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                      KC_R,CTRL_SHIFT,TABU, XXXXXXX,  XXXXXXX, _______,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                      C_SH_R,CTRL_SHIFT,TABU, XXXXXXX,  XXXXXXX, _______,\
+  // |--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,  KC_TRNS, KC_TRNS,    KC_TRNS, MO(4),KC_TRNS \
                                       //`--------------------------'  `--------------------------'
     ),
@@ -86,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,  XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     KC_PPLS, KC_1, KC_2, KC_3, KC_MINS,  KC_GRV,\
+      KC_ESC,  KC_MPRV, XXXXXXX,LALT(KC_W) ,XXXXXXX,XXXXXXX,                     KC_PPLS, KC_1, KC_2, KC_3, KC_MINS,  KC_GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, KC_LSFT, KC_LALT, KC_MPRV,XXXXXXX,XXXXXXX,                    KC_PAST, KC_4, KC_5, KC_6, KC_SLSH, _______,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     KC_0,    KC_7, KC_8, KC_9, KC_PERC, KC_LGUI,\
+      KC_CAPS, KC_LSFT,LALT(KC_A),LALT(KC_S),LALT(KC_D),XXXXXXX,                    KC_PAST, KC_4, KC_5, KC_6, KC_SLSH, _______,\
+  //|--------+--------+--------+--------+--------+----;;----|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT, KC_LALT, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     KC_0,    KC_7, KC_8, KC_9, KC_PERC, KC_LGUI,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, KC_TRNS, _______,    KC_TRNS, KC_TRNS, KC_TRNS\
                                       //`--------------------------'  `--------------------------'
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [4] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_F1, KC_F2, KC_F3,KC_F4, _______,\
+      QK_BOOT, LGUI(KC_1), LGUI(KC_2),LGUI(KC_3),LGUI(KC_4), LGUI(KC_5),        XXXXXXX, KC_F1, KC_F2, KC_F3,KC_F4, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, RM_SPDU, XXXXXXX,                     XXXXXXX, KC_F5, KC_F6, KC_F7,KC_F8, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
