@@ -10,6 +10,7 @@ EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
+TAP_DANCE_ENABLE = yes
 
 # Soporte para encoder (si lo usas)
 ENCODER_ENABLE = no
