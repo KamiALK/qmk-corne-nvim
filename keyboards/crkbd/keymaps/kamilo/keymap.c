@@ -5,6 +5,7 @@
 #define SYMBOLS 2
 #define NUMPAD 3
 #define ADJUST 4
+#define MULTIMEDIA 5
 
 // =================== Defines auxiliares ===================
 #define GUI_ENT  GUI_T(KC_ENT)
@@ -13,15 +14,13 @@
 #define CMD_C LGUI(KC_C)                           // Command + C
 #define CMD_V LGUI(KC_V)                           // Command + V
 #define CTRL_SPC MT(MOD_LCTL, KC_SPC)
-#define WIN_ALT_HOLD MT(MOD_LGUI | MOD_LALT, KC_NO)
+#define WIN_ALT_HOLD MT(MOD_LGUI | MOD_LSFT, KC_NO)
 #define ESC_WIN MT(MOD_LGUI, KC_ESC)
-#define C_SH_T MT(MOD_LCTL | MOD_LSFT, KC_T)
-#define C_SH_R MT(MOD_LGUI | MOD_LALT, KC_R)
 
 // =================== Custom keycodes ===================
 enum custom_keycodes {
     VIM_GCC = SAFE_RANGE,    // ESC + g + c + c
-    // VIM_XX,                  // ESC + SPACE + x + x
+    VIM_XX,                  // ESC + SPACE + x + x
     VIM_NVIM,                // n + v + i + m + SPACE + . + ENTER
     VIM_50YJ,                // ESC + 5 + 0 + y + j
     VIM_50YK,                // ESC + 5 + 0 + y + k
@@ -37,31 +36,33 @@ enum {
     TD_DIAG_E,     // errors
     TD_DIAG_T,     // trouble/todo
     TD_VIM_XX,     // ✅ AGREGA ESTA LÍNEA
+    TD_WIN_TAB_L5, // WIN+TAB tap, Layer 5 hold
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
- KC_BSPC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    LSFT_T(KC_SLSH),
+ KC_BSPC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  TD(TD_WIN_TAB_L5)  ,
 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- LGUI(KC_GRV), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LALT_T(KC_MINS),
+ESC_WIN , KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LALT_T(KC_MINS),
 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    ESC_WIN,
+ OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                     KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    LSFT_T(KC_SLSH),
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                      TD(TD_VIM_GCC),  MO(1),CTRL_SPC,  LT(3, GUI_ENT),MO(2),TD(TD_VIM_XX)
-                                      // `--------------------------'  `--------------------------'
+                                      // `--------------------------'  `-
+        // :-------------------------'
   ),
 
   [1] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,  XXXXXXX, XXXXXXX, KC_UP,  XXXXXXX,   KC_TAB,                    KC_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, KC_BSPC,\
+      KC_ESC,LGUI(KC_Q), XXXXXXX, KC_UP,  XXXXXXX,   KC_TAB,                    KC_T,KC_PGUP,VIM_50YK,VIM_AT_C,VIM_NVIM, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT,KC_LCTL,                      WIN_ALT_HOLD,KC_PGDN,VIM_50YJ, XXXXXXX, XXXXXXX, _______,\
+      KC_CAPS, XXXXXXX, KC_LEFT,KC_DOWN, KC_RIGHT,KC_LCTL,                      WIN_ALT_HOLD,KC_PGDN,KC_T, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CTRL_SHIFT,                  KC_R,CTRL_SHIFT,TABU, XXXXXXX,  XXXXXXX, _______,\
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX, CTRL_SHIFT,                  KC_LALT,CTRL_SHIFT,TABU, XXXXXXX,  XXXXXXX, _______,\
   // |--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,  KC_TRNS, KC_TRNS,    KC_TRNS, MO(4),KC_TRNS \
                                       //`--------------------------'  `--------------------------'
@@ -93,25 +94,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [4] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT, LGUI(KC_1), LGUI(KC_2),LGUI(KC_3),LGUI(KC_4), LGUI(KC_5),        XXXXXXX, KC_F1, KC_F2, KC_F3,KC_F4, _______,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_F1, KC_F2, KC_F3,KC_F4, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, RM_SPDU, XXXXXXX,                     XXXXXXX, KC_F5, KC_F6, KC_F7,KC_F8, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RM_NEXT, RM_HUED, RM_SATD, RM_VALD, RM_SPDD, XXXXXXX,                     XXXXXXX, KC_F9, KC_F10, KC_F11,KC_F12, XXXXXXX,\
+      RM_NEXT, RM_HUED, RM_SATD, RM_VALD, RM_SPDD, XXXXXXX,                     XXXXXXX, KC_F9, KC_F10, KC_F11,KC_F12, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, KC_TRNS, _______,    KC_TRNS, KC_TRNS, KC_TRNS\
+                                      //`--------------------------'  `--------------------------'
+  ),
+[5] = LAYOUT_split_3x6_3( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      QK_BOOT, LGUI(KC_1), LGUI(KC_2),LGUI(KC_3),LGUI(KC_4), LGUI(KC_5),        LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), XXXXXXX, XXXXXXX,\
+
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_Q,                      KC_PGUP, XXXXXXX, LGUI(KC_T), XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,LGUI(KC_Q), KC_VOLD, KC_MUTE, KC_VOLU, CTRL_SHIFT,                KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______, KC_LCTL,    _______, _______, _______\
                                       //`--------------------------'  `--------------------------'
   )
 };
 
+
 // =================== Process Record User ===================
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    //     case VIM_XX:
-    //         if (record->event.pressed) {
-    //             SEND_STRING(SS_TAP(X_ESC) " xx");
-    //         }
-    //         break;
+
         case VIM_NVIM:
             if (record->event.pressed) {
                 SEND_STRING("nvim ." SS_TAP(X_ENT));
@@ -154,6 +164,7 @@ void vim_gcc_finished(tap_dance_state_t *state, void *user_data) {
         }
     }
 }
+
 
 void vim_gcc_reset(tap_dance_state_t *state, void *user_data) {
     // Liberar Alt SIEMPRE al resetear
@@ -201,7 +212,25 @@ void diag_t_finished(tap_dance_state_t *state, void *user_data) {
         SEND_STRING("[t");  // 2 taps: trouble anterior
     }
 }
+// Función para WIN+TAB / Layer 5
+void win_tab_l5_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        if (state->pressed) {
+            // Hold: activar capa 5
+            layer_on(5);
+        } else {
+            // Tap: Alt+Tab
+            register_code(KC_LGUI);
+            tap_code(KC_TAB);
+            unregister_code(KC_LGUI);
+        }
+    }
+}
 
+void win_tab_l5_reset(tap_dance_state_t *state, void *user_data) {
+    // Desactivar capa 5 al soltar
+    layer_off(5);
+}
 // =================== Tap Dance Actions ===================
 tap_dance_action_t tap_dance_actions[] = {
     [TD_VIM_GCC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, vim_gcc_finished, vim_gcc_reset),
@@ -210,6 +239,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DIAG_D] = ACTION_TAP_DANCE_FN(diag_d_finished),
     [TD_DIAG_E] = ACTION_TAP_DANCE_FN(diag_e_finished),
     [TD_DIAG_T] = ACTION_TAP_DANCE_FN(diag_t_finished),
+    [TD_WIN_TAB_L5] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_tab_l5_finished, win_tab_l5_reset), // ← AGREGAR
 };
 
 #ifdef OLED_ENABLE
@@ -233,6 +263,10 @@ tap_dance_action_t tap_dance_actions[] = {
             case ADJUST :
                 oled_write("ADJUST", false);
                 break;
+            case MULTIMEDIA :
+                oled_write("MULTIMEDIA", false);
+                break;
+
         }
     }
 

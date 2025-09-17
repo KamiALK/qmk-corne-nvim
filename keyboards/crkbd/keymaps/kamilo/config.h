@@ -5,7 +5,7 @@
 #define MASTER_RIGHT
 #define SPLIT_USB_DETECT
 #define RGBLIGHT_SLEEP
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 
 #define TAPPING_TERM 200        // Tiempo más corto para tap (default: 200ms)
